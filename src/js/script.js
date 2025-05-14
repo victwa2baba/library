@@ -1,4 +1,5 @@
-const myLibrary = JSON.parse(localStorage.getItem('library')) || []; 
+(() => {
+  const myLibrary = JSON.parse(localStorage.getItem('library')) || []; 
 
 
 const addButton = document.querySelector('#addBook');
@@ -15,13 +16,14 @@ addButton.addEventListener('click', () => {
     form.classList.toggle('d-none');
 });
 
-const Book = function (id, title, author, pages, read) {
-  // the constructor...
-    this.id = id;
+class Book {
+  constructor(id, title, author, pages, read) {
+    this.id= id;
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+  }
 }
 
 
@@ -42,7 +44,7 @@ function handleFormSubmit(event) {
   const book = createBook();
   addBookToArray(book);
   updateTable();
-  updateLocalStorage(); // Call updateLocalStorage only once here
+  updateLocalStorage(); 
   clearForm();
 }
 
@@ -138,3 +140,4 @@ updateTable();
 function updateLocalStorage() {
   localStorage.setItem('library', JSON.stringify(myLibrary));
 }
+})();
